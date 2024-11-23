@@ -2,6 +2,7 @@
 
 This project contains two web scrapers: one for scraping book information from a book site and another for scraping quotes from a quote site. The scraped data is saved into CSV files.
 
+
 ## Usage
 
 ### 1. Book Site Scraper
@@ -18,6 +19,24 @@ This project contains two web scrapers: one for scraping book information from a
   ```sh
   python quoteSiteScraper.py
 
+
+## Example
+
+### Book Site Scraper Output
+- **CSV Columns**: `Title`, `Price`, `Availability`
+- **Sample Data**:
+  ```mathematica
+  "A Light in the Attic", £51.77, In stock
+  "Tipping the Velvet", £53.74, In stock
+
+### Quote Site Scraper Output
+- **CSV Columns**: `Quote`, `Author`, `Tags`
+- **Sample Data**:
+  ```mathematica
+  "The world as we have created it is a process of our thinking. It cannot be changed without changing our thinking.", "Albert Einstein", "change, deep-thoughts, thinking, world"
+  "It is our choices, Harry, that show what we truly are, far more than our abilities.", "J.K. Rowling", "abilities, choices"  
+
+
 ## Requirements
 
 - Python 3.x
@@ -26,5 +45,8 @@ This project contains two web scrapers: one for scraping book information from a
 
 You can install the required libraries using pip:
 
-```sh
-pip install requests beautifulsoup4  
+  ```sh
+  pip install requests beautifulsoup4
+
+
+  
