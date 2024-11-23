@@ -1,0 +1,45 @@
+import requests
+from bs4 import BeautifulSoup
+import csv
+
+def fetch_webpage(url):
+    response = requests.get(url)
+    if response.status_code == 200:
+        return response.text
+    else:
+        print(f"Failed to retrieve the webpage. Status code: {response.status_code}")
+        return None
+
+def parse_html(html_content):
+    soup = BeautifulSoup(html_content, 'html.parser')
+    headers = ['Quote', 'Author', 'Tags']
+    data = []
+    quotes = soup.find_all('div', class_='quote')
+    for quote in quotes:
+        text = quote.find('span', class_='text').text
+        author = quote.find('small', class_='author').text
+        tags = [tag.text for tag in quote.find_all('a', class_='tag')]
+        data.append([text, author, ', '.join(tags)])
+    return headers, data
+
+def save_to_csv(headers, data, filename):
+    with open(filename, mode='w', newline='', encoding='utf-8') as file:
+        writer = csv.writer(file)
+        writer.writerow(headers)
+        writer.writerows(data)
+
+def main():
+    url = 'https://quotes.toscrape.com/'
+    html_content = fetch_webpage(url)
+    if html_content:
+        headers, data = parse_html(html_content)
+        if headers and data:
+            save_to_csv(headers, data, 'quotes.csv')
+            print("Data has been saved to quotes.csv")
+        else:
+            print("No data found to save.")
+    else:
+        print("Failed to fetch the webpage content.")
+
+if __name__ == "__main__":
+    main()
